@@ -30,27 +30,121 @@
   a { color: var(--accent2); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  /* ── Layout ── */
-  .page { max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; }
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 50%, #0f172a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 24px 64px;
+    text-align: center;
+  }
 
-  /* ── Header ── */
-  header { margin-bottom: 64px; }
+  /* subtle grid overlay */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(99,102,241,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
 
-  .wordmark {
-    font-size: 28px;
+  /* radial glow behind logo */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    height: 300px;
+    background: radial-gradient(ellipse at center, rgba(99,102,241,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── Logo ── */
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 24px rgba(99,102,241,.4);
+    flex-shrink: 0;
+  }
+
+  .logo-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .logo-wordmark {
+    font-size: 26px;
     font-weight: 800;
     color: #f8fafc;
     letter-spacing: -0.5px;
-    margin-bottom: 12px;
   }
 
-  .wordmark span { color: var(--accent); }
+  .logo-wordmark span { color: var(--accent2); }
 
-  .tagline {
-    font-size: 17px;
+  .hero-tagline {
+    font-size: 16px;
+    color: #94a3b8;
+    max-width: 420px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+  }
+
+  .hero-tagline strong {
+    color: #cbd5e1;
+    font-weight: 600;
+  }
+
+  .hero-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
     color: var(--muted);
-    max-width: 480px;
+    background: rgba(255,255,255,.03);
+    letter-spacing: .03em;
   }
+
+  /* ── Layout ── */
+  .page { max-width: 760px; margin: 0 auto; padding: 56px 24px 96px; }
 
   /* ── Section label ── */
   .section-label {
@@ -187,6 +281,8 @@
 
   /* ── Responsive ── */
   @media (max-width: 540px) {
+    .hero { padding: 52px 16px 48px; }
+    .logo-wordmark { font-size: 22px; }
     .page { padding: 40px 16px 64px; }
     .card { padding: 22px 20px; }
     .card-code { font-size: 11px; }
@@ -194,12 +290,44 @@
 </style>
 </head>
 <body>
-<div class="page">
 
-  <header>
-    <div class="wordmark">Figgy<span>Labs</span></div>
-    <p class="tagline">Small tools that solve real problems. Local-first, open source, no accounts required.</p>
-  </header>
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-inner">
+
+    <div class="logo">
+      <div class="logo-icon">
+        <!-- circuit/node icon -->
+        <svg viewBox="0 0 24 24">
+          <circle cx="5"  cy="12" r="2"/>
+          <circle cx="19" cy="5"  r="2"/>
+          <circle cx="19" cy="19" r="2"/>
+          <line x1="7"  y1="12" x2="14" y2="7"/>
+          <line x1="7"  y1="12" x2="14" y2="17"/>
+          <line x1="14" y1="7"  x2="17" y2="6"/>
+          <line x1="14" y1="17" x2="17" y2="18"/>
+        </svg>
+      </div>
+      <span class="logo-wordmark">Figgy<span>Labs</span></span>
+    </div>
+
+    <p class="hero-tagline">
+      Small tools that solve real problems.<br>
+      <strong>Local-first. Open source. No accounts required.</strong>
+    </p>
+
+    <div class="hero-badges">
+      <span class="hero-badge">🔒 local-first</span>
+      <span class="hero-badge">⚡ zero setup</span>
+      <span class="hero-badge">🐍 pure Python</span>
+      <span class="hero-badge">MIT license</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Content ── -->
+<div class="page">
 
   <div class="section-label">Tools</div>
 
@@ -225,7 +353,7 @@
 <span class="dim">- Action items:</span>
 <span class="dim">  - Tom: set up live account by Thursday</span>
 <span class="dim">  - Priya: research VAT compliance by Friday</span></div>
-      <a class="card-link" href="https://github.com/FiggyDev/slack-thread-to-decisions-tool" target="_blank">
+      <a class="card-link" href="https://github.com/FiggyLabs/slack-thread-to-decisions-tool" target="_blank">
         View on GitHub →
       </a>
     </div>
@@ -246,7 +374,7 @@
 
 <span class="prompt">$ </span><span class="cmd">python3 stamped.py find stripe</span>
 <span class="out">  You decided: Stripe approved. Owner: Tom.</span></div>
-      <a class="card-link" href="https://github.com/FiggyDev/stamped" target="_blank">
+      <a class="card-link" href="https://github.com/FiggyLabs/stamped" target="_blank">
         View on GitHub →
       </a>
     </div>
@@ -263,7 +391,7 @@
 
   <footer>
     <span>© 2024 Figgy Labs</span>
-    <a href="https://github.com/FiggyDev/figgy-labs" target="_blank">GitHub</a>
+    <a href="https://github.com/FiggyLabs/figgy-labs" target="_blank">GitHub</a>
   </footer>
 
 </div>
